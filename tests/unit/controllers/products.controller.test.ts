@@ -1,6 +1,8 @@
 import chai, { expect } from 'chai';
+import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import app from '../../../src/app';
 import { Request, Response } from 'express';
 
 chai.use(sinonChai);
@@ -15,4 +17,15 @@ describe('ProductsController', function () {
     sinon.restore();
   });
 
+  it('Deve cadastrar um produto com sucesso', async function () {
+    const response = await chai.request(app)
+      .post('/products')
+      .send({
+      name: "Escudo do capitão",
+      price: "2 peças de ouro",
+      userId: 1
+      })
+
+    expect(response.status).to.be.equal(201);
+  });
 });
