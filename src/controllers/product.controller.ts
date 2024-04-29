@@ -1,13 +1,19 @@
 import { Request, Response } from 'express';
-import createProduct from '../services/product.service';
+import { create, show } from '../services/product.service';
 
-const createProductController = async (req: Request, res: Response) => {
+export const createProductController = async (req: Request, res: Response) => {
   const productData = req.body;
-  const product = await createProduct(productData);
+  const product = await create(productData);
   if (!product) {
     res.status(500).json({ message: 'Erro ao criar produto' });
   }
   res.status(201).json(product);
 };
 
-export default createProductController;
+export const showProductController = async (req: Request, res: Response) => {
+  const products = await show();
+  if (!products) {
+    res.status(500).json({ message: 'Erro ao exibir produtos' });
+  }
+  res.status(200).json(products);
+};
