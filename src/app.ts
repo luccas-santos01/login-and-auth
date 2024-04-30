@@ -1,6 +1,6 @@
 import express from 'express';
 import { createProductController, showProductController } from './controllers/product.controller';
-import userLoginController from './controllers/user.controller';
+import { userLoginController, showUsersController } from './controllers/user.controller';
 import {
   validateUsername,
   validatePassword,
@@ -18,12 +18,13 @@ const app = express();
 app.use(express.json());
 
 app.get('/products', showProductController);
+app.get('/users', showUsersController);
 
 app.post(
-  '/products', 
+  '/products',
   validateProductName,
-  validateProductPrice, 
-  validateUserId, 
+  validateProductPrice,
+  validateUserId,
   createProductController,
 );
 app.post(
