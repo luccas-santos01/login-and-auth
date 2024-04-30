@@ -7,6 +7,11 @@ import {
   validadeUserAcess,
   validadePasswordAcess,
 } from './middlewares/login';
+import {
+  validateProductName,
+  validateProductPrice,
+  validateUserId,
+} from './middlewares/product';
 
 const app = express();
 
@@ -14,7 +19,13 @@ app.use(express.json());
 
 app.get('/products', showProductController);
 
-app.post('/products', createProductController);
+app.post(
+  '/products', 
+  validateProductName,
+  validateProductPrice, 
+  validateUserId, 
+  createProductController,
+);
 app.post(
   '/login',
   validateUsername,

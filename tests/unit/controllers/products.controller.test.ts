@@ -25,7 +25,13 @@ describe('ProductsController', function () {
       price: "2 peças de ouro",
       userId: 1
       })
-
     expect(response.status).to.be.equal(201);
+    });
+
+    it('Deve exibir a lista de produtos cadastrados com sucesso', async function () {
+      const response = await chai.request(app)
+        .get('/products')
+
+    expect(response.status).to.be.equal(200);
+    })
   });
-});
